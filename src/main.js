@@ -31,7 +31,7 @@ class Entrance extends Component{
       {
         toValue: 50,
         duration: 1200,
-        delay: 2000,
+        delay: 1000,
         easing: Easing.elastic(1)
       }
     ).start();
@@ -40,10 +40,14 @@ class Entrance extends Component{
       {
         toValue: 0,
         duration: 800,
-        delay: 2000,
+        delay: 1000,
         easing: Easing.elastic(1)
       }
     ).start();
+    setTimeout(()=>{
+      this.props.hide();
+    },1300)
+    
   }
 
   render(){
@@ -55,11 +59,57 @@ class Entrance extends Component{
   }
 }
 
-export default class extends Component{
+class TwitterPost extends Component{
+  state = {
+      isRefreshing: false
+  }
+
+  _onRefresh = ()=>{
+    this.setState({
+      isRefreshing: true
+    });
+    setTimeout(()=>{
+      this.setState({
+        isRefreshing: false
+      })
+    },1000)
+  }
   render(){
     return (
-      <Entrance />
-      )
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.isRefreshing}
+            onRefresh={this._onRefresh}
+            tintColor="#ddd"
+          />
+        }
+      >
+        <Image source={require('./img/day3.png')} style={styles.img}></Image>
+      </ScrollView>
+    )
+  }
+}
+
+export default class extends Component{
+  state = {
+    entranceVisible: true
+  }
+
+  _hideEntrance = () => {
+    this.setState({
+      entranceVisible: false
+    })
+  }
+  render(){
+    let entrance = this.state.entranceVisible ? <Entrance hide={this._hideEntrance}/> : null
+    return (
+      <View >
+        <TwitterPost></TwitterPost>
+        {entrance}
+      </View>
+      
+    )
   }
 }
 
@@ -76,5 +126,9 @@ const styles = {
   },
   entranceIcon: {
     color: "#fff"
+  },
+  img: {
+    width: Util.size.width,
+    height: Util.size.height-110
   }
 }
