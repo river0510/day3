@@ -91,6 +91,45 @@ class TwitterPost extends Component{
   }
 }
 
+class TwitterFlow extends Component{
+  render(){
+    return(
+      <View>
+        <View style={styles.nav}>
+          <View style={styles.navLeft}>
+            <Icon name="ios-person-add" size={23} style={{color:"#1b95e0", paddingLeft:10}}></Icon>
+          </View>
+          <View style={styles.navMid}>
+            <Icon name="logo-twitter" size={27} style={{color:"#1b95e0"}}></Icon>
+          </View>
+          <View style={styles.navRight}>
+            <Icon name="ios-search" size={23} style={{color:"#1b95e0", width:30}}></Icon>
+            <Icon name="ios-create-outline" size={23} style={{color:"#1b95e0", width:30, paddingRight:10}}></Icon>
+          </View>
+        </View>
+        <TwitterPost></TwitterPost>
+      </View>      
+    )
+  }
+}
+
+class TwitterTab extends Component{
+  render(){
+    return(
+      const iosTabView = 
+        <TabBarIOS>
+          <Icon.TabBarItem
+            title="主页"
+            iconName="ios-home-outline"
+            selectedIconName="ios-home"
+          >
+            <TwitterFlow/>
+          </Icon.TabBarItem>
+        </TabBarIOS>
+    )
+  }
+}
+
 export default class extends Component{
   state = {
     entranceVisible: true
@@ -105,7 +144,7 @@ export default class extends Component{
     let entrance = this.state.entranceVisible ? <Entrance hide={this._hideEntrance}/> : null
     return (
       <View >
-        <TwitterPost></TwitterPost>
+        <TwitterFlow></TwitterFlow>
         {entrance}
       </View>
       
@@ -130,5 +169,25 @@ const styles = {
   img: {
     width: Util.size.width,
     height: Util.size.height-110
+  },
+  nav: {
+    flexDirection: "row",
+    paddingTop: 30, paddingLeft: 10,paddingBottom: 5,
+    marginBottom: 5,
+    borderBottomWidth: Util.pixel, borderColor: "#ddd"
+  },
+  navLeft: {
+    flex: 1,
+    justifyContent: "flex-start"
+  },
+  navMid: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  navRight: {
+    flex: 1,
+    justifyContent: "flex-end",
+    flexDirection: "row",
   }
 }
