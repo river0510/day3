@@ -114,18 +114,55 @@ class TwitterFlow extends Component{
 }
 
 class TwitterTab extends Component{
+  state = {
+    selectedTab: "主页"
+  }
+
+  changeTab(tab){
+    this.setState({
+      selectedTab: tab
+    })
+  }
+
   render(){
     return(
-      const iosTabView = 
-        <TabBarIOS>
-          <Icon.TabBarItem
-            title="主页"
-            iconName="ios-home-outline"
-            selectedIconName="ios-home"
-          >
-            <TwitterFlow/>
-          </Icon.TabBarItem>
-        </TabBarIOS>
+      <TabBarIOS
+          barTintColor="#fff"
+          tintColor="#1b95e0"
+        >
+        <Icon.TabBarItem
+          title="主页"
+          iconName="ios-home-outline"
+          selectedIconName="ios-home"
+          onPress={ this.changeTab.bind(this,"主页") }
+          selected={ this.state.selectedTab === "主页" }>
+          <TwitterFlow/>
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="通知"
+          iconName="ios-notifications-outline"
+          selectedIconName="ios-notifications"
+          onPress={ this.changeTab.bind(this,"通知") }
+          selected={ this.state.selectedTab === "通知"}>
+          <TwitterFlow/>
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="私信"
+          iconName="ios-mail-outline"
+          selectedIconName="ios-mail"
+          onPress={ this.changeTab.bind(this,"私信") }
+          selected={ this.state.selectedTab === "私信"}>
+          <TwitterFlow/>
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="我"
+          iconName="ios-person-outline"
+          selectedIconName="ios-person"
+          onPress={ this.changeTab.bind(this,"我") }
+          selected={ this.state.selectedTab === "我"}>
+          <TwitterFlow/>
+        </Icon.TabBarItem>
+      </TabBarIOS>
     )
   }
 }
@@ -143,8 +180,8 @@ export default class extends Component{
   render(){
     let entrance = this.state.entranceVisible ? <Entrance hide={this._hideEntrance}/> : null
     return (
-      <View >
-        <TwitterFlow></TwitterFlow>
+      <View style={styles.twitterContainer}>
+        <TwitterTab/>
         {entrance}
       </View>
       
@@ -153,6 +190,10 @@ export default class extends Component{
 }
 
 const styles = {
+  twitterContainer:{
+    width: Util.size.width,
+    height: Util.size.height
+  },
   entrance: {
     position: "absolute",
     top: 0,
